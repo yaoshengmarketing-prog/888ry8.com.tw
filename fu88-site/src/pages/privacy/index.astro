@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../consts';
+
+const desc = `${SITE.name}隱私政策：資訊蒐集與使用、Cookie、資訊分享、保存與安全、使用者權利與未成年保護等說明。`;
+const jsonLd = { '@context': 'https://schema.org', '@type': 'WebPage', name: `${SITE.brand} 隱私政策`, description: desc, url: `${SITE.url}/privacy/` };
+const sections = [
+  ['1. 我們蒐集的資訊', '當您使用本站或聯繫客服時，我們可能蒐集您主動提供的資訊（如聯絡方式），以及瀏覽過程中自動產生的技術資訊（如裝置、瀏覽器與造訪紀錄）。'],
+  ['2. 資訊的使用目的', '用於提供並改善服務、處理客服與活動、維護平台安全與防範濫用，以及依法令要求之用途。'],
+  ['3. Cookie 與類似技術', '本站可能使用 Cookie 以優化瀏覽體驗與分析流量。您可透過瀏覽器設定管理或關閉 Cookie。'],
+  ['4. 資訊分享', '除為提供服務所必要、經您同意或依法令要求外，我們不會將您的個人資訊出售或任意提供予第三方。'],
+  ['5. 資訊保存與安全', '我們採取合理之技術與管理措施保護您的資訊，並僅於必要期間內保存。'],
+  ['6. 您的權利', '您可就個人資訊行使查詢、更正或刪除等權利，請透過官方 LINE 客服提出。'],
+  ['7. 未成年保護', '本站服務僅供年滿 18 歲人士使用，不會蓄意蒐集未成年人之個人資訊。'],
+  ['8. 政策修改', '本政策如有修改，將於本站公告，並自公告時起生效。'],
+  ['9. 聯繫我們', '如對本隱私政策有任何疑問，請透過官方 LINE 客服與我們聯繫。'],
+];
+---
+<Base title="隱私政策" description={desc} type="website" jsonLd={jsonLd}>
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">PRIVACY POLICY</p>
+      <h1 class="sec-title" style="font-size:38px">隱私政策</h1>
+    </div>
+  </section>
+  <div class="wrap-narrow" style="padding:34px 24px 44px">
+    {sections.map(([h, p]) => (
+      <div style="margin-bottom:22px">
+        <h2 style="font-size:19px;font-weight:800;margin:0 0 8px;color:var(--ink)">{h}</h2>
+        <p style="color:var(--ink-soft);line-height:1.9;margin:0">{p}</p>
+      </div>
+    ))}
+    <p style="color:var(--muted);font-size:13px;margin:8px 0 0">最後更新：{SITE.year} 年</p>
+  </div>
+</Base>

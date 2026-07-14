@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE, LICENSES, PROVIDERS } from '../../consts';
+
+const desc = `${SITE.name}安全與合法監理說明：資金安全、遊戲公平、負責任博弈與國際監理介紹，帶你了解為什麼可以安心遊戲。`;
+const jsonLd = { '@context': 'https://schema.org', '@type': 'WebPage', name: `${SITE.brand} 安全與合法監理`, description: desc, url: `${SITE.url}/security-license/` };
+---
+<Base title="安全與合法監理" description={desc} type="website" jsonLd={jsonLd}>
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">SAFETY & LICENSE</p>
+      <h1 class="sec-title" style="font-size:38px">{SITE.brand} 安全與合法監理</h1>
+    </div>
+    <p class="cat-intro">選擇娛樂城，最重要的是「錢放得安心、遊戲玩得公平、有問題找得到人」。本頁說明 {SITE.name} 在合法監理、資金安全與公平機制上的做法，讓你了解為什麼可以安心遊戲。</p>
+  </section>
+
+  <div class="wrap-narrow" style="padding:34px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">合法監理</h2>
+    <p style="color:var(--ink-soft);line-height:1.9;margin:0 0 16px">{SITE.name}參照國際博弈監理標準營運。以下說明各機構對玩家的實際意義：</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      {LICENSES.map((l) => (
+        <div style="padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)">
+          <div style="font-weight:800;color:var(--gold-deep);margin-bottom:4px">{l.name}</div>
+          <div style="font-size:14px;color:var(--muted-2);line-height:1.8">{l.desc}</div>
+        </div>
+      ))}
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:12px 0 0">＊ 牌照編號將於官方提供後補上；本頁目前以監理介紹為主。</p>
+  </div>
+
+  <div class="wrap-narrow" style="padding:26px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">資金安全</h2>
+    <p style="color:var(--ink-soft);line-height:1.9;margin:0">{SITE.name}採多元且加密的金流管道（EXpay、虛擬幣、ATM／銀行轉帳等），存取款流程透明，並對帳號與金流進行一致性核對，降低盜用風險，讓你的每一筆存款與提款都安心。</p>
+  </div>
+
+  <div class="wrap-narrow" style="padding:26px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">遊戲公平</h2>
+    <p style="color:var(--ink-soft);line-height:1.9;margin:0 0 10px">平台遊戲由多家國際知名供應商提供，遊戲結果依各供應商之隨機機制產生，確保公平：</p>
+    <p style="color:var(--muted-2);line-height:1.9;margin:0">{PROVIDERS.join('、')} 等。</p>
+  </div>
+
+  <div class="wrap-narrow" style="padding:26px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">負責任博弈</h2>
+    <p style="color:var(--ink-soft);line-height:1.9;margin:0">{SITE.name}僅提供 18 歲以上人士娛樂。我們鼓勵理性遊戲、設定預算與時間；博弈具風險，請量力而為，切勿視為賺錢方式，若感到難以自我控制請適時暫停。</p>
+  </div>
+
+  <div class="wrap-narrow" style="padding:26px 24px 44px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">有問題找誰</h2>
+    <p style="color:var(--ink-soft);line-height:1.9;margin:0">任何註冊、存款、出金或安全疑問，皆可透過官方 LINE 客服 <a href={SITE.lineUrl} style="font-weight:700">{SITE.lineId}</a> 聯繫，我們將協助你處理。</p>
+  </div>
+</Base>

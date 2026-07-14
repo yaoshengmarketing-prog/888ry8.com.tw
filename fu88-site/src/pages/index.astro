@@ -1,0 +1,212 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, SITE } from '../consts';
+
+const banners = [
+  ['01','新會員註冊 贈送體驗金288'],['02','首存連續3天 立即領取200%獎勵'],['03','首存第30天 贈送高達18,888'],
+  ['04','首存第7天 贈送高達15,888'],['05','黃金會員日 每月8號 狂撒獎金8,800萬'],['06','VIP永不降級 每月領取288,888'],
+  ['07','每天簽到 每天領取獎勵'],['08','每天返水3% 不看等級無上限'],['09','神秘彩金 每日領獎不定時派發'],
+  ['10','真人連贏再送 高達888,888'],['11','真人每天投注 彩金高達6,888'],['12','真人救援金 每天返3%'],
+  ['13','電子·捕魚·棋牌 每日投注彩金高達2,888'],['14','電子·捕魚·棋牌 救援金5%'],['15','電子·捕魚·棋牌 贏再送2%'],
+  ['16','體育每天投注 彩金高達2,888'],['17','體育連贏彩金 高達8,888'],['18','體育救援金 高達15,888'],
+  ['19','EXpay錢包 送288體驗金'],['20','虛擬幣存取款 尊享三重豪禮'],['21','極速ATM存款 每筆贈0.5%'],
+  ['22','預約取款 額外加送1%'],['23','EXpay錢包 操作指南'],['24','自己當代理賺錢 每週賺500,000'],
+  ['25','BNG電子 獎金雨活動'],
+];
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const fmt = (d) => d.toISOString().slice(0, 10);
+const canonical = SITE.url + '/';
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  alternateName: SITE.brand,
+  url: SITE.url,
+  logo: SITE.url + '/images/banner-01.webp',
+  description: `${SITE.name}官方平台，提供體育投注、真人視訊、電子、捕魚與棋牌等多元遊戲。`,
+  contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: SITE.lineUrl, availableLanguage: ['zh-Hant'] },
+  sameAs: [SITE.lineUrl],
+};
+---
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>富88 娛樂城｜體育投注・真人・電子捕魚棋牌・每日優惠</title>
+<meta name="description" content="富88 娛樂城提供體育投注、真人、電子捕魚棋牌等多元遊戲，新會員註冊送 288 體驗金，每日簽到領獎、首存加碼、EXpay 與虛擬幣快速存取款，24 小時客服全年不打烊。">
+<link rel="canonical" href={canonical}>
+<script type="application/ld+json" set:html={JSON.stringify(orgLd)}></script>
+<link rel="alternate" type="application/rss+xml" title={SITE.blogTitle} href="/rss.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style is:global>
+  *{box-sizing:border-box}
+  body{margin:0;background:#1a0c10;font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#f5ece0}
+  a{color:#e4c07a;text-decoration:none}a:hover{color:#f2d491}
+  .cinzel{font-family:Cinzel,serif}
+  @keyframes you-mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .hero-wrap{position:relative;width:100%;aspect-ratio:1920/700;border-radius:20px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.55);border:1px solid rgba(216,162,74,.35);background:#230f15}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .6s;z-index:1}
+  .slide.active{opacity:1;z-index:2}
+  .slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-count{position:absolute;top:14px;left:16px;z-index:15;padding:5px 13px;border-radius:99px;background:rgba(0,0,0,.55);color:#f2d491;font-family:Cinzel,serif;font-weight:700;font-size:13px;letter-spacing:1px}
+  .hero-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:rgba(255,255,255,.9);color:#7c1d2b;font-size:20px;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+  .hero-btn:hover{background:#fff}.hero-prev{left:16px}.hero-next{right:16px}
+  .hero-dots{position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:center;flex-wrap:wrap;gap:8px;z-index:20}
+  .hero-dots button{height:8px;width:8px;border-radius:99px;border:none;cursor:pointer;padding:0;background:rgba(255,255,255,.4);box-shadow:0 1px 4px rgba(0,0,0,.35);transition:all .3s}
+  .hero-dots button.active{width:26px;background:#d8a24a}
+  .cat-tile{display:flex;flex-direction:column;align-items:center;gap:14px;padding:32px 18px;border-radius:18px;background:linear-gradient(180deg,#341a20,#2a1318);border:1px solid rgba(216,162,74,.24);box-shadow:0 6px 20px rgba(0,0,0,.35);transition:all .2s}
+  .cat-tile:hover{transform:translateY(-5px);box-shadow:0 14px 32px rgba(124,29,43,.4);border-color:rgba(216,162,74,.6)}
+  .cta-btn{display:inline-block;padding:16px 46px;border-radius:12px;font-size:18px;font-weight:800;letter-spacing:1px;color:#3a1408;background:#fff;box-shadow:0 10px 26px rgba(0,0,0,.4);transition:all .18s}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.5);color:#3a1408}
+  .p-card{display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#2a1318;border:1px solid rgba(216,162,74,.24);box-shadow:0 6px 20px rgba(0,0,0,.35);transition:all .2s}
+  .p-card:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(124,29,43,.4);border-color:rgba(216,162,74,.55)}
+  .p-card .th{aspect-ratio:16/9;overflow:hidden}.p-card .th img{width:100%;height:100%;object-fit:cover;display:block}
+  .chip{align-self:flex-start;font-size:12px;font-weight:700;color:#3a1408;background:linear-gradient(135deg,#f2d491,#d8a24a);padding:4px 12px;border-radius:99px}
+  @media (max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr)!important}.service-grid{grid-template-columns:repeat(2,1fr)!important}.news-grid{grid-template-columns:1fr!important}h2{font-size:30px!important}}
+</style>
+</head>
+<body>
+<div style="min-height:100vh">
+
+  <SiteHeader />
+
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10)" aria-label="主視覺輪播">
+    <div style="max-width:1440px; margin:0 auto; padding:28px 32px 24px">
+      <div class="hero-wrap" id="hero">
+        {banners.map(([n, alt], i) => (
+          <div class={`slide${i === 0 ? ' active' : ''}`}>
+            <img src={`/images/banner-${n}.webp`} width="1920" height="700" loading={i === 0 ? 'eager' : 'lazy'} alt={`富88 娛樂城 ${alt}`} />
+          </div>
+        ))}
+        <div class="hero-count"><span id="heroCur">01</span> / 25</div>
+        <button class="hero-btn hero-prev" id="heroPrev" aria-label="上一張">‹</button>
+        <button class="hero-btn hero-next" id="heroNext" aria-label="下一張">›</button>
+        <div class="hero-dots" id="heroDots" role="tablist" aria-label="輪播選擇"></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#230f15; border-top:1px solid rgba(216,162,74,.18); border-bottom:1px solid rgba(216,162,74,.18)" aria-label="最新公告">
+    <div style="max-width:1440px; margin:0 auto; padding:0 32px; display:flex; align-items:center; gap:16px; height:58px">
+      <div style="flex:none; display:flex; align-items:center; gap:8px; padding:7px 16px; border-radius:99px; background:linear-gradient(135deg,#f2d491,#c08a34); color:#3a1408; font-weight:700; font-size:14px; box-shadow:0 3px 10px rgba(216,162,74,.35)"><span style="width:6px;height:6px;border-radius:50%;background:#7c1d2b;display:block"></span> 最新公告</div>
+      <div style="position:relative; flex:1; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)">
+        <div style="display:inline-flex; white-space:nowrap; animation:you-mq 32s linear infinite">
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>新會員註冊即送 288 體驗金，簽到再領每日獎勵</span>
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>首存最高加碼 18,888，存越多送越多</span>
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>EXpay 與虛擬幣極速存取款，每筆再享回饋</span>
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>新會員註冊即送 288 體驗金，簽到再領每日獎勵</span>
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>首存最高加碼 18,888，存越多送越多</span>
+          <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#e6d6c4; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#d8a24a;display:inline-block"></i>EXpay 與虛擬幣極速存取款，每筆再享回饋</span>
+        </div>
+      </div>
+      <a href="/blog/categories/promotions/" style="flex:none; font-size:14px; font-weight:600; color:#e4c07a; padding:6px 12px; border-radius:8px">更多 ›</a>
+    </div>
+  </section>
+
+  <section id="games" style="max-width:1440px; margin:0 auto; padding:72px 32px 12px; text-align:center">
+    <p class="cinzel" style="font-size:15px; letter-spacing:3px; margin:0 0 6px; color:#e4c07a">TOP GAMES</p>
+    <h2 style="font-size:42px; font-weight:900; margin:0 0 10px; letter-spacing:2px; color:#f5ece0">熱門遊戲分類</h2>
+    <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:44px">
+      <span style="width:60px; height:2px; background:linear-gradient(90deg,transparent,#d8a24a)"></span><span style="color:#d8a24a">◆</span><span style="width:60px; height:2px; background:linear-gradient(90deg,#d8a24a,transparent)"></span>
+    </div>
+    <div class="cat-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px">
+      {[['體','體育投注','SPORTS'],['真','真人視訊','LIVE'],['電','電子遊戲','SLOTS'],['魚','捕魚遊戲','FISHING'],['棋','棋牌遊戲','POKER'],['彩','彩票遊戲','LOTTERY'],['競','電競投注','ESPORTS'],['全','全部遊戲','ALL GAMES']].map(([g,zh,en]) => (
+        <a href="#" class="cat-tile">
+          <span style="width:78px; height:78px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:900; color:#3a1408; background:linear-gradient(135deg,#f2d491,#d8a24a); box-shadow:0 6px 16px rgba(216,162,74,.4),inset 0 1px 2px rgba(255,255,255,.5)">{g}</span>
+          <span style="font-size:18px; font-weight:700; color:#f5ece0">{zh}</span>
+          <span class="cinzel" style="font-size:12px; letter-spacing:1.5px; color:#b49c88">{en}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== 最新文章（部落格自動帶入）===== -->
+  <section style="max-width:1440px; margin:0 auto; padding:72px 32px 8px; text-align:center">
+    <p class="cinzel" style="font-size:15px; letter-spacing:3px; margin:0 0 6px; color:#e4c07a">LATEST POSTS</p>
+    <h2 style="font-size:42px; font-weight:900; margin:0 0 10px; letter-spacing:2px; color:#f5ece0">最新文章</h2>
+    <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:44px">
+      <span style="width:60px; height:2px; background:linear-gradient(90deg,transparent,#d8a24a)"></span><span style="color:#d8a24a">◆</span><span style="width:60px; height:2px; background:linear-gradient(90deg,#d8a24a,transparent)"></span>
+    </div>
+    <div class="news-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:26px; text-align:left">
+      {posts.map((p) => (
+        <a href={`/post/${p.slug}/`} class="p-card">
+          <div class="th">{p.data.cover && <img src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} loading="lazy" />}</div>
+          <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:10px">
+            <span class="chip">{CATEGORIES[p.data.category]}</span>
+            <h3 style="font-size:19px; font-weight:800; margin:2px 0; color:#f5ece0; line-height:1.4">{p.data.title}</h3>
+            <p style="font-size:14px; color:#cbb9a5; margin:0">{p.data.description}</p>
+            <div style="font-size:13px; color:#b49c88; margin-top:4px">{fmt(p.data.pubDate)} · {p.data.author}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+    <div style="margin-top:30px">
+      <a href="/blog/" style="display:inline-block; font-size:15px; font-weight:600; color:#e4c07a; padding:8px 4px; border-bottom:1px solid rgba(228,192,122,.4)">查看全部文章 →</a>
+    </div>
+  </section>
+
+  <section id="service" style="margin-top:64px; background:linear-gradient(180deg,#230f15,#1a0c10); padding:64px 32px; border-top:1px solid rgba(216,162,74,.14); border-bottom:1px solid rgba(216,162,74,.14)">
+    <div style="max-width:1440px; margin:0 auto; text-align:center">
+      <p class="cinzel" style="font-size:15px; letter-spacing:3px; margin:0 0 6px; color:#e4c07a">QUALITY SERVICE</p>
+      <h2 style="font-size:42px; font-weight:900; margin:0 0 10px; letter-spacing:2px; color:#f5ece0">優質服務</h2>
+      <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:44px">
+        <span style="width:60px; height:2px; background:linear-gradient(90deg,transparent,#d8a24a)"></span><span style="color:#d8a24a">◆</span><span style="width:60px; height:2px; background:linear-gradient(90deg,#d8a24a,transparent)"></span>
+      </div>
+      <div class="service-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:30px">
+        {[['極速','快速出款免等待','FAST PAYOUT'],['加密','資金安全有保障','SECURE'],['全裝置','支援所有裝置','ALL DEVICES'],['24H','全年客服不打烊','SUPPORT']].map(([big,zh,en]) => (
+          <div style="display:flex; flex-direction:column; align-items:center; gap:16px">
+            <span class="cinzel" style="width:128px; height:128px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 40%,#4a0f18,#230f15); border:5px solid #d8a24a; box-shadow:0 10px 26px rgba(0,0,0,.5),inset 0 0 20px rgba(0,0,0,.5); font-size:28px; font-weight:900; color:#f2d491">{big}</span>
+            <div><p style="font-size:18px; font-weight:700; color:#f5ece0; margin:0 0 3px">{zh}</p><p class="cinzel" style="font-size:12px; letter-spacing:1.5px; color:#b49c88; margin:0">{en}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" style="position:relative; overflow:hidden; background:linear-gradient(135deg,#a5283a,#4a0f18)">
+    <div style="position:absolute; inset:0; background-image:radial-gradient(rgba(242,212,145,.16) 1px,transparent 1px); background-size:22px 22px; opacity:.7"></div>
+    <div style="position:relative; max-width:900px; margin:0 auto; padding:72px 32px; text-align:center; color:#fff">
+      <p class="cinzel" style="letter-spacing:3px; font-size:14px; margin:0 0 12px; color:#f2d491">JOIN 富88</p>
+      <h2 style="font-size:40px; font-weight:900; margin:0 0 14px; letter-spacing:1px; text-shadow:0 2px 8px rgba(0,0,0,.4); color:#fff">立即加入，開啟你的遊戲之旅</h2>
+      <p style="font-size:17px; line-height:1.7; margin:0 auto 32px; max-width:520px; color:rgba(255,255,255,.92)">30 秒完成註冊，新會員登入即享 288 體驗金與每日簽到獎勵。</p>
+      <a href="#" class="cta-btn">免費註冊 ›</a>
+    </div>
+  </section>
+
+  <SiteFooter />
+</div>
+
+<script is:inline>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('#hero .slide'));
+  var dotsWrap = document.getElementById('heroDots');
+  var curEl = document.getElementById('heroCur');
+  var idx = 0, timer = null, N = slides.length;
+  function pad(n){ return String(n+1).padStart(2,'0'); }
+  slides.forEach(function(_,i){
+    var b = document.createElement('button');
+    b.setAttribute('role','tab'); b.setAttribute('aria-label','第 '+(i+1)+' 張');
+    b.addEventListener('click', function(){ go(i); reset(); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+  function go(i){ idx=(i+N)%N; slides.forEach(function(s,j){ s.classList.toggle('active',j===idx); }); dots.forEach(function(d,j){ d.classList.toggle('active',j===idx); }); curEl.textContent=pad(idx); }
+  function next(){ go(idx+1); }
+  function reset(){ clearInterval(timer); timer=setInterval(next,5000); }
+  document.getElementById('heroNext').addEventListener('click', function(){ next(); reset(); });
+  document.getElementById('heroPrev').addEventListener('click', function(){ go(idx-1); reset(); });
+  go(0); reset();
+})();
+</script>
+</body>
+</html>

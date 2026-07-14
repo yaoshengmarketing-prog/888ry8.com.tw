@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../consts';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft && p.data.category === 'deposit-withdraw')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const subtopics = [
+  ['出金流程', '從申請到入帳的完整步驟'],
+  ['提款時間', '各方式處理時間與尖峰排隊注意事項'],
+  ['出金限額', '單筆／單日提款上下限'],
+  ['流水條件', '領過加碼／體驗金後的打碼量要求'],
+  ['出金審核', '身分與金流一致性核對重點'],
+  ['提款延遲／銀行攔截', '卡關時的排查與客服處理方式'],
+];
+const desc = '富88 出金／提款問題總整理：出金流程、提款時間、流水條件與提款延遲、銀行攔截處理一次看懂，讓你順利把錢領出來。';
+const jsonLd = { '@context':'https://schema.org', '@type':'WebPage', name:'出金／提款問題總整理', description:desc, url:`${SITE.url}/withdraw-guide/` };
+const fmt = (d)=>d.toISOString().slice(0,10);
+---
+<Base title="出金／提款問題總整理" description={desc} type="website" jsonLd={jsonLd}>
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">HUB · 存款與出金</p>
+      <h1 class="sec-title" style="font-size:38px">出金／提款問題總整理</h1>
+    </div>
+    <p class="cat-intro">提款是玩家最在意的一關。這裡把出金流程、提款時間、流水條件與最常見的「提款延遲、銀行攔截」處理方式一次講清楚。真正的異常排除，會連到「客服與常見問題」的對應文章，不重複寫。</p>
+  </section>
+
+  <div class="wrap-narrow" style="padding:36px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 16px;padding-left:14px;border-left:5px solid var(--gold)">這個主題包含</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
+      {subtopics.map(([t,d])=>(
+        <div style="padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)">
+          <div style="font-weight:800;color:var(--gold-deep);margin-bottom:4px">{t}</div>
+          <div style="font-size:14px;color:var(--muted-2)">{d}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap-narrow" style="padding:30px 24px 12px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">相關教學文章</h2>
+    {posts.length === 0 ? (
+      <p style="color:var(--muted-2)">出金相關文章正在陸續補上，敬請期待。</p>
+    ) : (
+      <ul style="list-style:none;padding:0;margin:0">
+        {posts.map((p)=>(
+          <li style="padding:12px 0;border-bottom:1px solid var(--line)">
+            <a href={`/post/${p.slug}/`} style="font-weight:700;font-size:16px">{p.data.title}</a>
+            <div style="font-size:13px;color:var(--muted);margin-top:2px">{fmt(p.data.pubDate)}</div>
+          </li>
+        ))}
+      </ul>
+    )}
+    <p style="margin-top:20px">
+      <a href="/blog/categories/deposit-withdraw/" class="pill">看「存款與出金」全部文章 ›</a>
+      <a href="/blog/categories/customer-service/" class="pill">出金卡關？看「客服與常見問題」 ›</a>
+    </p>
+  </div>
+</Base>

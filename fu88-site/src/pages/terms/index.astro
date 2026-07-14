@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../consts';
+
+const desc = `${SITE.name}服務條款：服務範圍、年齡限制、帳號責任、優惠與存取款規範、免責與智慧財產權等說明。`;
+const jsonLd = { '@context': 'https://schema.org', '@type': 'WebPage', name: `${SITE.brand} 服務條款`, description: desc, url: `${SITE.url}/terms/` };
+const sections = [
+  ['1. 服務範圍', `本網站為 ${SITE.name} 之官方資訊與服務平台，提供遊戲介紹、優惠資訊、教學指南與客服聯繫等內容。`],
+  ['2. 資格與年齡限制', '使用本站服務者，須確認已年滿 18 歲，並符合所在地區之相關法令。未滿 18 歲者不得使用。'],
+  ['3. 帳號與責任', '您應妥善保管自己的帳號與登入資訊，並對帳號下之所有活動負責。如發現帳號遭盜用，請立即透過官方 LINE 客服通報。'],
+  ['4. 使用規範', '您同意不從事任何違法、破壞平台運作或影響其他使用者權益之行為，包含但不限於程式破解、濫用優惠與惡意攻擊。'],
+  ['5. 優惠與活動', '各項優惠活動之內容、資格與規則以平台公告為準。本平台保留調整、暫停或終止活動之權利，並將於公告後生效。'],
+  ['6. 存款與出金', '存取款須符合平台規範與流水／驗證條件。為保障資金安全，平台得對帳號與金流進行必要之核對。'],
+  ['7. 免責聲明', '本平台之資訊已力求正確，惟不對因不可抗力、第三方服務中斷或使用者自身因素所生之損失負責。博弈具風險，請自行審慎評估。'],
+  ['8. 智慧財產權', `本站之文字、圖像、版面與程式等內容，均為 ${SITE.name} 所有，未經授權不得複製、轉載或作商業使用。`],
+  ['9. 條款修改', '本平台保留隨時修改本條款之權利，修改後將於本站公告，並自公告時起生效。'],
+  ['10. 聯繫方式', '如對本條款有任何疑問，請透過官方 LINE 客服與我們聯繫。'],
+];
+---
+<Base title="服務條款" description={desc} type="website" jsonLd={jsonLd}>
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">TERMS OF SERVICE</p>
+      <h1 class="sec-title" style="font-size:38px">服務條款</h1>
+    </div>
+  </section>
+  <div class="wrap-narrow" style="padding:34px 24px 44px">
+    {sections.map(([h, p]) => (
+      <div style="margin-bottom:22px">
+        <h2 style="font-size:19px;font-weight:800;margin:0 0 8px;color:var(--ink)">{h}</h2>
+        <p style="color:var(--ink-soft);line-height:1.9;margin:0">{p}</p>
+      </div>
+    ))}
+    <p style="color:var(--muted);font-size:13px;margin:8px 0 0">最後更新：{SITE.year} 年</p>
+  </div>
+</Base>

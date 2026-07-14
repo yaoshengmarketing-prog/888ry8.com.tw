@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const d = post.data;
+const url = new URL(`/post/${post.slug}/`, SITE.url).href;
+const img = d.cover ? new URL(d.cover, SITE.url).href : undefined;
+const catName = CATEGORIES[d.category];
+const fmt = (x) => x.toISOString().slice(0, 10);
+
+// 結構化資料（BlogPosting + 麵包屑 +（若有）FAQ）
+const graph = [
+  {
+    '@type': 'BlogPosting',
+    headline: d.title,
+    description: d.description,
+    datePublished: d.pubDate.toISOString(),
+    dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+    author: { '@type': 'Organization', name: d.author },
+    publisher: { '@type': 'Organization', name: SITE.name },
+    mainEntityOfPage: url,
+    ...(img ? { image: img } : {}),
+    keywords: d.tags.join(', '),
+    articleSection: catName,
+  },
+  {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '首頁', item: SITE.url + '/' },
+      { '@type': 'ListItem', position: 2, name: '部落格', item: SITE.url + '/blog/' },
+      { '@type': 'ListItem', position: 3, name: catName, item: `${SITE.url}/blog/categories/${d.category}/` },
+      { '@type': 'ListItem', position: 4, name: d.title, item: url },
+    ],
+  },
+];
+if (d.faq.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: d.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
+---
+<Base title={d.title} description={d.description} image={d.cover} type="article" jsonLd={jsonLd}>
+  <article class="article">
+    <div class="wrap-narrow" style="padding:34px 24px 10px">
+      <nav class="breadcrumb" aria-label="麵包屑">
+        <a href="/">首頁</a> › <a href="/blog/">部落格</a> ›
+        <a href={`/blog/categories/${d.category}/`}>{catName}</a> › <span>{d.title}</span>
+      </nav>
+      <span class="chip">{catName}</span>
+      <h1 style="font-size:34px; font-weight:900; line-height:1.4; margin:14px 0 10px; letter-spacing:.5px">{d.title}</h1>
+      <div class="post-meta" style="margin-bottom:6px">
+        <time datetime={d.pubDate.toISOString()}>{fmt(d.pubDate)}</time>
+        <span>· {d.author}</span>
+      </div>
+    </div>
+
+    {d.cover && (
+      <div class="wrap-narrow" style="padding:0 24px">
+        <img src={d.cover} alt={d.coverAlt ?? d.title} width="1920" height="700"
+          style="width:100%; border-radius:16px; box-shadow:0 12px 32px rgba(150,110,50,.18)" />
+      </div>
+    )}
+
+    <div class="wrap-narrow prose" style="padding:26px 24px 8px">
+      <Content />
+    </div>
+
+    {d.faq.length > 0 && (
+      <div class="wrap-narrow" style="padding:18px 24px 8px">
+        <h2 style="font-size:26px; font-weight:900; margin:22px 0 14px; padding-left:14px; border-left:5px solid var(--gold)">常見問題 FAQ</h2>
+        {d.faq.map((f) => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <div class="a">{f.a}</div>
+          </details>
+        ))}
+      </div>
+    )}
+
+    {d.tags.length > 0 && (
+      <div class="wrap-narrow" style="padding:14px 24px 8px; display:flex; flex-wrap:wrap; gap:8px">
+        {d.tags.map((t) => <span class="pill" style="cursor:default">#{t}</span>)}
+      </div>
+    )}
+
+    <section id="cta" style="position:relative; overflow:hidden; background:linear-gradient(135deg,#a5283a,#4a0f18); margin-top:40px">
+      <div style="position:absolute; inset:0; background-image:radial-gradient(rgba(242,212,145,.16) 1px,transparent 1px); background-size:22px 22px; opacity:.6"></div>
+      <div style="position:relative; max-width:820px; margin:0 auto; padding:52px 32px; text-align:center; color:#fff">
+        <h2 style="font-size:30px; font-weight:900; margin:0 0 12px; color:#fff">新會員註冊即送 288 體驗金</h2>
+        <p style="font-size:16px; margin:0 auto 26px; max-width:460px; color:rgba(255,255,255,.92)">看完攻略，直接開始你的第一場遊戲。</p>
+        <a href="/" class="cta-btn">回首頁免費註冊 ›</a>
+      </div>
+    </section>
+  </article>
+</Base>

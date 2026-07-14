@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../../consts';
+
+// 承接文章：存款與出金分類中，偏「存款」的文章
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft && p.data.category === 'deposit-withdraw')
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const subtopics = [
+  ['存款方式', 'EXpay、虛擬幣、ATM／銀行轉帳等各種管道與適用情境'],
+  ['到帳時間', '各方式大約多久入帳、尖峰時段要注意什麼'],
+  ['存款限額', '最低／最高金額門檻與常見限制'],
+  ['帳戶驗證', '首次存款前的身分與金流核對重點'],
+  ['存款未到帳', '沒入帳時的自我檢查與客服處理流程'],
+  ['常見支付工具', 'EXpay 錢包與 USDT 等工具的操作要點'],
+];
+const desc = '富88 存款教學總整理：一頁看懂各種存款方式、到帳時間、限額與驗證，並附常見問題與相關教學，第一次存款也不卡關。';
+const jsonLd = { '@context':'https://schema.org', '@type':'WebPage', name:'存款教學總整理', description:desc, url:`${SITE.url}/deposit-guide/` };
+const fmt = (d)=>d.toISOString().slice(0,10);
+---
+<Base title="存款教學總整理" description={desc} type="website" jsonLd={jsonLd}>
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">HUB · 存款與出金</p>
+      <h1 class="sec-title" style="font-size:38px">存款教學總整理</h1>
+    </div>
+    <p class="cat-intro">把「怎麼把錢順利存進 富88」一次講清楚：各種存款方式、到帳時間、限額與驗證，看完就知道用哪個最快、要準備什麼。異常狀況（例如存款未到帳）也會連到對應的排除教學。</p>
+  </section>
+
+  <div class="wrap-narrow" style="padding:36px 24px 8px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 16px;padding-left:14px;border-left:5px solid var(--gold)">這個主題包含</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
+      {subtopics.map(([t,d])=>(
+        <div style="padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)">
+          <div style="font-weight:800;color:var(--gold-deep);margin-bottom:4px">{t}</div>
+          <div style="font-size:14px;color:var(--muted-2)">{d}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap-narrow" style="padding:30px 24px 12px">
+    <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">相關教學文章</h2>
+    {posts.length === 0 ? (
+      <p style="color:var(--muted-2)">存款相關文章正在陸續補上，敬請期待。</p>
+    ) : (
+      <ul style="list-style:none;padding:0;margin:0">
+        {posts.map((p)=>(
+          <li style="padding:12px 0;border-bottom:1px solid var(--line)">
+            <a href={`/post/${p.slug}/`} style="font-weight:700;font-size:16px">{p.data.title}</a>
+            <div style="font-size:13px;color:var(--muted);margin-top:2px">{fmt(p.data.pubDate)}</div>
+          </li>
+        ))}
+      </ul>
+    )}
+    <p style="margin-top:20px"><a href="/blog/categories/deposit-withdraw/" class="pill">看「存款與出金」全部文章 ›</a></p>
+  </div>
+
+  <div class="wrap-narrow" style="padding:8px 24px 40px">
+    <a href="/withdraw-guide/" class="hub-card" style="display:block">
+      <span class="hub-tag">下一步</span>
+      <h3>出金／提款問題總整理 ›</h3>
+      <p>存好之後，怎麼順利把錢領出來？出金流程、提款時間、流水條件與提款延遲處理都在這。</p>
+    </a>
+  </div>
+</Base>

@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, CATEGORY_ORDER, SITE } from '../../consts';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d) => d.toISOString().slice(0, 10);
+---
+<Base title={SITE.blogTitle} description={SITE.blogDesc} type="website">
+  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:56px 0 40px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">富88 BLOG</p>
+      <h1 class="sec-title" style="font-size:44px">{SITE.blogTitle}</h1>
+      <p style="max-width:640px; margin:8px auto 0; color:var(--muted-2)">{SITE.blogDesc}</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding:40px 32px 8px">
+    <nav class="pill-cats" aria-label="文章分類">
+      <a href="/blog/" class="pill active">全部</a>
+      {CATEGORY_ORDER.map((slug) => (
+        <a href={`/blog/categories/${slug}/`} class="pill">{CATEGORIES[slug]}</a>
+      ))}
+    </nav>
+  </div>
+
+  <div class="container" style="padding:0 32px 72px">
+    <div class="post-grid">
+      {posts.map((p) => (
+        <a href={`/post/${p.slug}/`} class="post-card">
+          <div class="thumb">
+            {p.data.cover && <img src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} loading="lazy" />}
+          </div>
+          <div class="body">
+            <span class="chip">{CATEGORIES[p.data.category]}</span>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.description}</p>
+            <div class="post-meta">
+              <time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+              <span>· {p.data.author}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

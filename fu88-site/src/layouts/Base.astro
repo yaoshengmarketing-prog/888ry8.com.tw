@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { SITE } from '../consts';
+
+const {
+  title,
+  description = SITE.blogDesc,
+  image,
+  type = 'website',
+  jsonLd,
+  noHeaderFooter = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = image ? new URL(image, SITE.url).href : new URL('/images/banner-01.webp', SITE.url).href;
+const fullTitle = title ? `${title}｜${SITE.name}` : SITE.name;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  alternateName: SITE.brand,
+  url: SITE.url,
+  logo: new URL('/images/banner-01.webp', SITE.url).href,
+  description: `${SITE.name}官方平台，提供體育投注、真人視訊、電子、捕魚與棋牌等多元遊戲。`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    url: SITE.lineUrl,
+    availableLanguage: ['zh-Hant'],
+  },
+  sameAs: [SITE.lineUrl],
+};
+---
+<!DOCTYPE html>
+<html lang={SITE.lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content={SITE.name} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="alternate" type="application/rss+xml" title={SITE.blogTitle} href="/rss.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+</head>
+<body>
+  {!noHeaderFooter && <SiteHeader />}
+  <slot />
+  {!noHeaderFooter && <SiteFooter />}
+</body>
+</html>
