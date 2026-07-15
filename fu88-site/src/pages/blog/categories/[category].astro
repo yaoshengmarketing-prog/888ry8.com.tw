@@ -23,7 +23,7 @@ const hubs = CATEGORY_HUBS[category] ?? [];
 const fmt = (d) => d.toISOString().slice(0, 10);
 ---
 <Base title={`${catName}文章`} description={intro ?? `富88 娛樂城「${catName}」分類的所有文章與教學。`} type="website">
-  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+  <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2); padding:52px 0 30px">
     <div class="container" style="text-align:center">
       <p class="eyebrow">CATEGORY</p>
       <h1 class="sec-title" style="font-size:40px">{catName}</h1>
@@ -56,7 +56,7 @@ const fmt = (d) => d.toISOString().slice(0, 10);
 
   <div class="container" style="padding:0 32px 72px">
     {posts.length === 0 ? (
-      <p style="text-align:center; color:var(--muted-2); padding:40px 0">這個分類的文章正在陸續補上，敬請期待。</p>
+      <p style="text-align:center; color:#6b6252; padding:40px 0">這個分類的文章正在陸續補上，敬請期待。</p>
     ) : (
       <div class="post-grid">
         {posts.map((p) => (

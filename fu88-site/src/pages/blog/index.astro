@@ -10,11 +10,11 @@ const posts = (await getCollection('blog'))
 const fmt = (d) => d.toISOString().slice(0, 10);
 ---
 <Base title={SITE.blogTitle} description={SITE.blogDesc} type="website">
-  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:56px 0 40px">
+  <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2); padding:56px 0 40px">
     <div class="container" style="text-align:center">
       <p class="eyebrow">富88 BLOG</p>
       <h1 class="sec-title" style="font-size:44px">{SITE.blogTitle}</h1>
-      <p style="max-width:640px; margin:8px auto 0; color:var(--muted-2)">{SITE.blogDesc}</p>
+      <p style="max-width:640px; margin:8px auto 0; color:#6b6252">{SITE.blogDesc}</p>
     </div>
   </section>
 

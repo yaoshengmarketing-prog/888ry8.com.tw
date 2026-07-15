@@ -20,7 +20,7 @@ const jsonLd = { '@context':'https://schema.org', '@type':'WebPage', name:'出�
 const fmt = (d)=>d.toISOString().slice(0,10);
 ---
 <Base title="出金／提款問題總整理" description={desc} type="website" jsonLd={jsonLd}>
-  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+  <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2); padding:52px 0 30px">
     <div class="container" style="text-align:center">
       <p class="eyebrow">HUB · 存款與出金</p>
       <h1 class="sec-title" style="font-size:38px">出金／提款問題總整理</h1>
@@ -32,9 +32,9 @@ const fmt = (d)=>d.toISOString().slice(0,10);
     <h2 style="font-size:24px;font-weight:900;margin:0 0 16px;padding-left:14px;border-left:5px solid var(--gold)">這個主題包含</h2>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
       {subtopics.map(([t,d])=>(
-        <div style="padding:16px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line)">
+        <div style="padding:16px 18px;border-radius:14px;background:#fff;border:1px solid var(--line)">
           <div style="font-weight:800;color:var(--gold-deep);margin-bottom:4px">{t}</div>
-          <div style="font-size:14px;color:var(--muted-2)">{d}</div>
+          <div style="font-size:14px;color:#6b6252">{d}</div>
         </div>
       ))}
     </div>
@@ -43,7 +43,7 @@ const fmt = (d)=>d.toISOString().slice(0,10);
   <div class="wrap-narrow" style="padding:30px 24px 12px">
     <h2 style="font-size:24px;font-weight:900;margin:0 0 14px;padding-left:14px;border-left:5px solid var(--gold)">相關教學文章</h2>
     {posts.length === 0 ? (
-      <p style="color:var(--muted-2)">出金相關文章正在陸續補上，敬請期待。</p>
+      <p style="color:#6b6252">出金相關文章正在陸續補上，敬請期待。</p>
     ) : (
       <ul style="list-style:none;padding:0;margin:0">
         {posts.map((p)=>(

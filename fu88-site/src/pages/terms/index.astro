@@ -18,7 +18,7 @@ const sections = [
 ];
 ---
 <Base title="服務條款" description={desc} type="website" jsonLd={jsonLd}>
-  <section style="background:linear-gradient(180deg,#230f15,#1a0c10); padding:52px 0 30px">
+  <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2); padding:52px 0 30px">
     <div class="container" style="text-align:center">
       <p class="eyebrow">TERMS OF SERVICE</p>
       <h1 class="sec-title" style="font-size:38px">服務條款</h1>
@@ -27,10 +27,10 @@ const sections = [
   <div class="wrap-narrow" style="padding:34px 24px 44px">
     {sections.map(([h, p]) => (
       <div style="margin-bottom:22px">
-        <h2 style="font-size:19px;font-weight:800;margin:0 0 8px;color:var(--ink)">{h}</h2>
-        <p style="color:var(--ink-soft);line-height:1.9;margin:0">{p}</p>
+        <h2 style="font-size:19px;font-weight:800;margin:0 0 8px;color:#3a3020">{h}</h2>
+        <p style="color:#4a4033;line-height:1.9;margin:0">{p}</p>
       </div>
     ))}
-    <p style="color:var(--muted);font-size:13px;margin:8px 0 0">最後更新：{SITE.year} 年</p>
+    <p style="color:#9a8f78;font-size:13px;margin:8px 0 0">最後更新：{SITE.year} 年</p>
   </div>
 </Base>

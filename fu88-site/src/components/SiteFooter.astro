@@ -1,35 +1,35 @@
 ---
 import { SITE, PROVIDERS, LICENSES, CATEGORY_ORDER, CATEGORIES } from '../consts';
 ---
-<footer class="site-footer" style="background:#3a0b13; color:#c8b6a4; padding:0; margin:0">
+<footer class="site-footer" style="background:#23282f; color:#9aa0aa; padding:0; margin:0">
   <!-- 合作遊戲供應商 -->
-  <div style="border-bottom:1px solid rgba(216,162,74,.14); padding:26px 24px">
+  <div style="border-bottom:1px solid rgba(255,255,255,.08); padding:26px 24px">
     <div style="max-width:1200px; margin:0 auto; text-align:center">
-      <p style="margin:0 0 12px; font-size:13px; letter-spacing:2px; color:#e4c07a">合作遊戲供應商</p>
+      <p style="margin:0 0 12px; font-size:13px; letter-spacing:2px; color:#cbb488">合作遊戲供應商</p>
       <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px 18px">
         {PROVIDERS.map((p) => (
-          <span style="font-size:14px; font-weight:700; color:#e6d6c4; opacity:.85">{p}</span>
+          <span style="font-size:14px; font-weight:700; color:#c7ccd4; opacity:.85">{p}</span>
         ))}
       </div>
     </div>
   </div>
 
   <!-- 安全與合法監理 -->
-  <div style="border-bottom:1px solid rgba(216,162,74,.14); padding:28px 24px; background:#2f0810">
+  <div style="border-bottom:1px solid rgba(255,255,255,.08); padding:28px 24px; background:#1f242b">
     <div style="max-width:1000px; margin:0 auto; text-align:center">
-      <p style="margin:0 0 6px; font-size:15px; font-weight:800; color:#f2d491">安全與合法監理</p>
-      <p style="margin:0 auto 16px; max-width:760px; font-size:13px; line-height:1.9; color:#c8b6a4">
+      <p style="margin:0 0 6px; font-size:15px; font-weight:800; color:#e6cd97">安全與合法監理</p>
+      <p style="margin:0 auto 16px; max-width:760px; font-size:13px; line-height:1.9; color:#9aa0aa">
         {SITE.name}重視每一位玩家的權益與資金安全，平台營運參照多個國際博弈監理機構之規範，落實資金隔離、公平性稽核與玩家保障。
       </p>
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; text-align:left; margin-bottom:14px" class="footer-lic">
         {LICENSES.map((l) => (
-          <div style="background:rgba(255,255,255,.04); border:1px solid rgba(216,162,74,.16); border-radius:10px; padding:12px 14px">
-            <div style="font-size:13px; font-weight:800; color:#e4c07a; margin-bottom:4px">{l.name}</div>
-            <div style="font-size:12px; line-height:1.7; color:#b49c88">{l.desc}</div>
+          <div style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:12px 14px">
+            <div style="font-size:13px; font-weight:800; color:#d9c091; margin-bottom:4px">{l.name}</div>
+            <div style="font-size:12px; line-height:1.7; color:#8b929c">{l.desc}</div>
           </div>
         ))}
       </div>
-      <a href="/security-license/" style="font-size:13px; color:#f2d491; font-weight:700">了解 {SITE.brand} 的安全與牌照 ›</a>
+      <a href="/security-license/" style="font-size:13px; color:#e6cd97; font-weight:700">了解 {SITE.brand} 的安全與牌照 ›</a>
     </div>
   </div>
 
@@ -37,34 +37,34 @@ import { SITE, PROVIDERS, LICENSES, CATEGORY_ORDER, CATEGORIES } from '../consts
   <div style="padding:30px 24px">
     <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px" class="footer-cols">
       <div>
-        <div class="cinzel" style="font-weight:800; font-size:22px; letter-spacing:2px; color:#f2d491; margin-bottom:10px">{SITE.brand}</div>
-        <p style="margin:0; font-size:13px; line-height:1.9; color:#b49c88">{SITE.name}提供體育投注、真人視訊、電子、捕魚與棋牌等多元遊戲，是玩家安心娛樂的官方平台。</p>
-        <p style="margin:14px 0 0; font-size:13px; color:#e6d6c4">官方 LINE 客服：<a href={SITE.lineUrl} style="color:#f2d491; font-weight:700">{SITE.lineId}</a></p>
+        <div class="cinzel" style="font-weight:800; font-size:22px; letter-spacing:2px; color:#e6cd97; margin-bottom:10px">{SITE.brand}</div>
+        <p style="margin:0; font-size:13px; line-height:1.9; color:#8b929c">{SITE.name}提供體育投注、真人視訊、電子、捕魚與棋牌等多元遊戲，是玩家安心娛樂的官方平台。</p>
+        <p style="margin:14px 0 0; font-size:13px; color:#c7ccd4">官方 LINE 客服：<a href={SITE.lineUrl} style="color:#e6cd97; font-weight:700">{SITE.lineId}</a></p>
       </div>
       <div>
-        <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#e6d6c4">快速連結</p>
+        <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#c7ccd4">快速連結</p>
         {CATEGORY_ORDER.slice(0, 6).map((slug) => (
-          <a href={`/blog/categories/${slug}/`} style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">{CATEGORIES[slug]}</a>
+          <a href={`/blog/categories/${slug}/`} style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">{CATEGORIES[slug]}</a>
         ))}
       </div>
       <div>
-        <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#e6d6c4">服務與條款</p>
-        <a href="/blog/categories/platform-guide/" style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">新手幫助</a>
-        <a href="/blog/categories/customer-service/" style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">常見問題</a>
-        <a href="/security-license/" style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">安全與牌照</a>
-        <a href="/terms/" style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">服務條款</a>
-        <a href="/privacy/" style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">隱私政策</a>
-        <a href={SITE.lineUrl} style="display:block; font-size:13px; color:#c8b6a4; padding:4px 0">聯繫我們</a>
+        <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#c7ccd4">服務與條款</p>
+        <a href="/blog/categories/platform-guide/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">新手幫助</a>
+        <a href="/blog/categories/customer-service/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">常見問題</a>
+        <a href="/security-license/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">安全與牌照</a>
+        <a href="/terms/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">服務條款</a>
+        <a href="/privacy/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">隱私政策</a>
+        <a href={SITE.lineUrl} style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">聯繫我們</a>
       </div>
     </div>
   </div>
 
   <!-- 18+ 與版權 -->
-  <div style="border-top:1px solid rgba(216,162,74,.14); padding:18px 24px; text-align:center">
-    <p style="margin:0 auto 8px; max-width:760px; font-size:12px; line-height:1.8; color:#a58f7d">
+  <div style="border-top:1px solid rgba(255,255,255,.08); padding:18px 24px; text-align:center">
+    <p style="margin:0 auto 8px; max-width:760px; font-size:12px; line-height:1.8; color:#7b828c">
       本站內容僅供 18 歲以上人士娛樂使用。博弈具風險，請理性遊戲、量力而為，切勿將博弈視為賺錢方式；若感到難以自我控制，請適時暫停並尋求協助。
     </p>
-    <p style="margin:0; font-size:12px; color:#8f7869">© {SITE.year} {SITE.name}. 版權所有。</p>
+    <p style="margin:0; font-size:12px; color:#6b727c">© {SITE.year} {SITE.name}. 版權所有。</p>
   </div>
 </footer>
 

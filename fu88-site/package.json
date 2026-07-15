@@ -10,11 +10,8 @@
     "new": "node scripts/new-post.mjs"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.11",
+    "astro": "^4.16.18",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^4.16.18"
-  },
-  "devDependencies": {
-    "playwright": "^1.61.1"
+    "@astrojs/rss": "^4.0.11"
   }
 }
