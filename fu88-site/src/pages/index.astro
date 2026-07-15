@@ -65,6 +65,15 @@ const orgLd = {
   .p-card .th{aspect-ratio:16/9;overflow:hidden}.p-card .th img{width:100%;height:100%;object-fit:cover;display:block}
   .chip{align-self:flex-start;font-size:12px;font-weight:700;color:#7a5a1e;background:linear-gradient(135deg,#f0dcae,#dbb37e);padding:4px 12px;border-radius:99px}
   @media (max-width:900px){.cat-grid{grid-template-columns:repeat(2,1fr)!important}.service-grid{grid-template-columns:repeat(2,1fr)!important}.news-grid{grid-template-columns:1fr!important}h2{font-size:30px!important}}
+  @media (max-width:600px){
+    .hero-pad{ padding:12px 8px 14px !important; } .hero-wrap{ border-radius:12px !important; } .hero-btn{ width:34px !important; height:34px !important; font-size:16px !important; }
+    #games{ padding:40px 14px 4px !important; } h2{ font-size:24px !important; }
+    .cat-grid{ gap:12px !important; }
+    .cat-tile{ padding:16px 8px !important; gap:7px !important; border-radius:14px !important; }
+    .cat-tile > span:first-child{ width:50px !important; height:50px !important; font-size:22px !important; border-radius:13px !important; }
+    .cat-tile > span:nth-child(2){ font-size:14.5px !important; }
+    .cat-tile .cinzel{ font-size:10px !important; letter-spacing:1px !important; }
+  }
 </style>
 </head>
 <body>
@@ -73,7 +82,7 @@ const orgLd = {
   <SiteHeader />
 
   <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2)" aria-label="主視覺輪播">
-    <div style="max-width:1440px; margin:0 auto; padding:28px 32px 24px">
+    <div class="hero-pad" style="max-width:1440px; margin:0 auto; padding:28px 32px 24px">
       <div class="hero-wrap" id="hero">
         {banners.map((n, i) => (
           <div class={`slide${i === 0 ? ' active' : ''}`}>
