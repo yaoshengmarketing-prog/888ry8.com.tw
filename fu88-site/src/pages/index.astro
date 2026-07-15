@@ -121,9 +121,9 @@ const orgLd = {
       <span style="width:60px; height:2px; background:linear-gradient(90deg,transparent,#c99a56)"></span><span style="color:#8a6a2a">◆</span><span style="width:60px; height:2px; background:linear-gradient(90deg,#c99a56,transparent)"></span>
     </div>
     <div class="cat-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px">
-      {[['體','體育投注','SPORTS'],['真','真人視訊','LIVE'],['電','電子遊戲','SLOTS'],['魚','捕魚遊戲','FISHING'],['棋','棋牌遊戲','POKER'],['彩','彩票遊戲','LOTTERY'],['競','電競投注','ESPORTS'],['全','全部遊戲','ALL GAMES']].map(([g,zh,en]) => (
+      {[['sports','體育投注','SPORTS'],['live','真人視訊','LIVE'],['slots','電子遊戲','SLOTS'],['fishing','捕魚遊戲','FISHING'],['poker','棋牌遊戲','POKER'],['lottery','彩票遊戲','LOTTERY'],['esports','電競投注','ESPORTS'],['all','全部遊戲','ALL GAMES']].map(([ic,zh,en]) => (
         <a href="#" class="cat-tile">
-          <span style="width:78px; height:78px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:900; color:#7a5a1e; background:linear-gradient(135deg,#f0dcae,#dbb37e); box-shadow:0 6px 16px rgba(183,135,60,.35),inset 0 1px 2px rgba(255,255,255,.6)">{g}</span>
+          <span style="width:78px; height:78px; border-radius:20px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#fbf5e8,#f4ecd9); box-shadow:0 6px 16px rgba(183,135,60,.22),inset 0 1px 2px rgba(255,255,255,.6)"><img src={`/images/icon-${ic}.webp`} alt={`${zh}圖示`} width="56" height="56" loading="lazy" decoding="async" style="width:56px; height:56px; object-fit:contain" /></span>
           <span style="font-size:18px; font-weight:700; color:#3a3020">{zh}</span>
           <span class="cinzel" style="font-size:12px; letter-spacing:1.5px; color:#a08a5e">{en}</span>
         </a>
