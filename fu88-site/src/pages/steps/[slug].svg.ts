@@ -28,7 +28,7 @@ export async function GET({ props }: any) {
   const accent = ACCENT[d.category] ?? '#c1954e';
   const catName = CATEGORIES[d.category] ?? '';
   const host = new URL(SITE.url).host;
-  const steps = d.steps as { t: string; d?: string }[];
+  const steps = d.steps as any[];
 
   const W = 1080;
   const HEADER = 220;
@@ -48,8 +48,8 @@ export async function GET({ props }: any) {
     ${line}
     <circle cx="104" cy="${cy}" r="32" fill="url(#stepGold)"/>
     <text x="104" y="${cy + 11}" text-anchor="middle" font-size="30" font-weight="900" fill="#3a2b12" font-family="${FF}">${i + 1}</text>
-    <text x="164" y="${cy - 2}" font-size="34" font-weight="800" fill="#f4ead2" font-family="${FF}">${esc(clip(s.t, 26))}</text>
-    ${s.d ? `<text x="164" y="${cy + 30}" font-size="22" fill="#c7b58e" font-family="${FF}">${esc(clip(s.d, 34))}</text>` : ''}`;
+    <text x="164" y="${cy - 2}" font-size="34" font-weight="800" fill="#f4ead2" font-family="${FF}">${esc(clip(s.title ?? s.t ?? '', 26))}</text>
+    ${(s.body ?? s.d) ? `<text x="164" y="${cy + 30}" font-size="22" fill="#c7b58e" font-family="${FF}">${esc(clip(s.body ?? s.d, 34))}</text>` : ''}`;
     })
     .join('');
 
