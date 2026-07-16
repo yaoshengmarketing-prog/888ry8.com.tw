@@ -7,8 +7,8 @@ export const SITE = {
   blogDesc: '富88 娛樂城官方部落格：平台指南、註冊與帳號、APP與手機版、優惠活動、存款與出金、遊戲玩法、安全查核、客服與常見問題，手把手教你玩得安心、領好領滿。',
   lang: 'zh-Hant-TW',
   // 登入／註冊的目標網址（引流 CTA）—— 之後換成正式網址
-  loginUrl: '#',
-  registerUrl: '#',
+  loginUrl: 'https://888ry8.com/auth/login',
+  registerUrl: 'https://888ry8.com/auth/register',
   // 官方 LINE 客服（換站時改這裡）— 富88 官方加好友連結（取自 888ry8.com）
   lineId: '富88官方LINE客服',
   lineUrl: 'https://lin.ee/dvMGq1j',
