@@ -25,9 +25,19 @@ const blog = defineCollection({
     author: z.string().default('富88 編輯部'),
     draft: z.boolean().default(false), // true = 草稿，不會被發佈
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
-    // 操作步驟（教學類文章用）：t=步驟標題（必填）、d=補充說明（選填）。
-    // 有填才會顯示「操作步驟」流程與可分享步驟圖；正文仍維持 Markdown。
-    steps: z.array(z.object({ t: z.string(), d: z.string().optional() })).default([]),
+    // ===== 視覺區塊（第一批 4 種；frontmatter 驅動、build 自動渲染、不碰正文 Markdown）=====
+    // 重點整理 TL;DR：開頭 3–5 條懶人包（幾乎所有文章）。
+    keyPoints: z.array(z.string()).default([]),
+    // 提示／警示框：type = tip / note / warning。
+    callouts: z
+      .array(z.object({ type: z.enum(['warning', 'tip', 'note']).default('note'), title: z.string().optional(), body: z.string().optional() }))
+      .default([]),
+    // 操作步驟：title=步驟標題、body=說明（相容舊 t/d 欄位）。
+    steps: z
+      .array(z.object({ title: z.string().optional(), body: z.string().optional(), t: z.string().optional(), d: z.string().optional() }))
+      .default([]),
+    // 查核清單：勾選式清單。
+    checklist: z.array(z.string()).default([]),
   }),
 });
 
