@@ -135,6 +135,28 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
       </div>
     )}
 
+    {d.steps.length > 0 && (
+      <div class="wrap-narrow" style="padding:24px 24px 4px">
+        <h2 style="font-size:26px; font-weight:900; margin:6px 0 18px; padding-left:14px; border-left:5px solid var(--gold)">操作步驟</h2>
+        <ol style="list-style:none; margin:0; padding:0">
+          {d.steps.map((s, i) => (
+            <li style="display:flex; gap:16px; align-items:stretch">
+              <div style="flex:none; display:flex; flex-direction:column; align-items:center">
+                <div style="width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#e6cd97,#c1954e); color:#3a2b12; font-weight:900; font-size:19px; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(180,140,70,.35)">{i + 1}</div>
+                {i < d.steps.length - 1 && <div style="width:2px; flex:1; min-height:16px; margin:6px 0; background:linear-gradient(#dbb37e,rgba(219,179,126,.25))"></div>}
+              </div>
+              <div style="flex:1; padding:6px 0 22px">
+                <div style="font-weight:800; font-size:18px; color:#3a3020; line-height:1.5">{s.t}</div>
+                {s.d && <div style="margin-top:5px; color:#5a5140; font-size:15.5px; line-height:1.75">{s.d}</div>}
+              </div>
+            </li>
+          ))}
+        </ol>
+        <a href={`/steps/${post.slug}.svg`} target="_blank" rel="noopener"
+          style="display:inline-flex; align-items:center; gap:6px; margin-top:2px; font-size:14px; font-weight:700; color:var(--gold-deep)">下載可分享步驟圖 ›</a>
+      </div>
+    )}
+
     <div class="wrap-narrow prose" style="padding:26px 24px 8px">
       <Content />
     </div>
