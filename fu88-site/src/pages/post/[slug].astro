@@ -16,6 +16,35 @@ const img = d.cover ? new URL(d.cover, SITE.url).href : undefined;
 const catName = CATEGORIES[d.category];
 const fmt = (x) => x.toISOString().slice(0, 10);
 
+// === 自動封面圖（無 cover 時 build 生成的品牌 SVG 主圖）===
+const FF = '"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif';
+const host = new URL(SITE.url).host;
+const ACCENT = {
+  'platform-guide': '#c1954e',
+  'register-account': '#6fa8c9',
+  'app-mobile': '#7cb890',
+  'promotions': '#d98a5a',
+  'deposit-withdraw': '#b98fd0',
+  'game-guide': '#d06b74',
+  'security': '#5fb0a8',
+  'customer-service': '#cbb26a',
+};
+const accent = ACCENT[d.category] ?? '#c1954e';
+const titleLines = (() => {
+  const per = 13, maxLines = 3;
+  const chars = [...d.title];
+  const lines = [];
+  for (let i = 0; i < chars.length; i += per) lines.push(chars.slice(i, i + per).join(''));
+  if (lines.length > maxLines) {
+    const kept = lines.slice(0, maxLines);
+    kept[maxLines - 1] = [...kept[maxLines - 1]].slice(0, per - 1).join('') + '…';
+    return kept;
+  }
+  return lines;
+})();
+const titleFont = titleLines.length >= 3 ? 58 : 72;
+const titleY = ({ 1: [286], 2: [246, 324], 3: [206, 280, 354] })[titleLines.length] || [206, 280, 354];
+
 // 結構化資料（BlogPosting + 麵包屑 +（若有）FAQ）
 const graph = [
   {
@@ -68,10 +97,41 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
       </div>
     </div>
 
-    {d.cover && (
+    {d.cover ? (
       <div class="wrap-narrow" style="padding:0 24px">
         <img src={d.cover} alt={d.coverAlt ?? d.title} width="1920" height="700"
           style="width:100%; border-radius:16px; box-shadow:0 12px 32px rgba(150,110,50,.18)" />
+      </div>
+    ) : (
+      <div class="wrap-narrow" style="padding:0 24px">
+        <svg viewBox="0 0 1200 480" role="img" aria-label={d.coverAlt ?? d.title}
+          style="width:100%; height:auto; display:block; border-radius:16px; box-shadow:0 12px 32px rgba(150,110,50,.18)">
+          <defs>
+            <linearGradient id="fu88bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2b2013" />
+              <stop offset="1" stop-color="#4c3a22" />
+            </linearGradient>
+            <radialGradient id="fu88glow" cx="0.82" cy="0.18" r="0.9">
+              <stop offset="0" stop-color={accent} stop-opacity="0.55" />
+              <stop offset="0.5" stop-color={accent} stop-opacity="0.12" />
+              <stop offset="1" stop-color={accent} stop-opacity="0" />
+            </radialGradient>
+            <pattern id="fu88dots" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.4" fill="#ffffff" opacity="0.05" />
+            </pattern>
+          </defs>
+          <rect width="1200" height="480" fill="url(#fu88bg)" />
+          <rect width="1200" height="480" fill="url(#fu88dots)" />
+          <rect width="1200" height="480" fill="url(#fu88glow)" />
+          <rect x="0" y="0" width="1200" height="6" fill={accent} />
+          <rect x="90" y="70" width="10" height="46" rx="3" fill={accent} />
+          <text x="118" y="103" font-size="30" font-weight="700" fill="#efe3cb" style={`font-family:${FF}; letter-spacing:2px`}>{catName}</text>
+          {titleLines.map((ln, i) => (
+            <text x="90" y={titleY[i]} font-size={titleFont} font-weight="900" fill="#f8efd9" style={`font-family:${FF}; letter-spacing:1px`}>{ln}</text>
+          ))}
+          <text x="90" y="438" font-size="36" font-weight="900" fill="#e6cd97" style={`font-family:${FF}; letter-spacing:1px`}>{SITE.brand}<tspan font-size="24" fill="#cdb383" dx="8">娛樂城</tspan></text>
+          <text x="1110" y="438" text-anchor="end" font-size="22" fill="#b49a68" style={`font-family:${FF}`}>{host}</text>
+        </svg>
       </div>
     )}
 
