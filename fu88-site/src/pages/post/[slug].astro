@@ -31,19 +31,39 @@ const ACCENT = {
 };
 const accent = ACCENT[d.category] ?? '#c1954e';
 const titleLines = (() => {
-  const per = 13, maxLines = 3;
-  const chars = [...d.title];
+  const SOFT = 13, HARD = 15, MIN = 5, MAXL = 3;
+  const BREAK = new Set('：，、。！？；／·…—～ '.split(''));
+  const c = [...d.title];
   const lines = [];
-  for (let i = 0; i < chars.length; i += per) lines.push(chars.slice(i, i + per).join(''));
-  if (lines.length > maxLines) {
-    const kept = lines.slice(0, maxLines);
-    kept[maxLines - 1] = [...kept[maxLines - 1]].slice(0, per - 1).join('') + '…';
-    return kept;
+  let i = 0;
+  while (i < c.length && lines.length < MAXL) {
+    let end;
+    if (i + HARD >= c.length) {
+      end = c.length;
+    } else {
+      let bp = -1;
+      for (let j = i + MIN; j <= i + SOFT && j < c.length; j++) if (BREAK.has(c[j])) bp = j + 1;
+      if (bp < 0) for (let j = i + SOFT + 1; j < i + HARD && j < c.length; j++) { if (BREAK.has(c[j])) { bp = j + 1; break; } }
+      end = bp > i ? bp : i + SOFT;
+    }
+    lines.push(c.slice(i, end).join('').replace(/\s+$/, ''));
+    i = end;
+    while (c[i] === ' ') i++;
+  }
+  if (i < c.length) {
+    let L = [...lines[lines.length - 1]];
+    if (L.length >= SOFT) L = L.slice(0, SOFT - 1);
+    lines[lines.length - 1] = L.join('') + '…';
   }
   return lines;
 })();
-const titleFont = titleLines.length >= 3 ? 58 : 72;
-const titleY = ({ 1: [286], 2: [246, 324], 3: [206, 280, 354] })[titleLines.length] || [206, 280, 354];
+const maxLen = Math.max(...titleLines.map((l) => [...l].length), 1);
+let titleFont = Math.min(72, Math.floor(1020 / maxLen) - 2);
+if (titleLines.length >= 3) titleFont = Math.min(titleFont, 58);
+titleFont = Math.max(44, titleFont);
+const lh = titleFont + 14;
+const first = 280 - ((titleLines.length - 1) * lh) / 2 + titleFont * 0.34;
+const titleY = titleLines.map((_, i) => Math.round(first + i * lh));
 
 // 結構化資料（BlogPosting + 麵包屑 +（若有）FAQ）
 const graph = [
