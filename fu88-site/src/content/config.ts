@@ -25,6 +25,9 @@ const blog = defineCollection({
     author: z.string().default('富88 編輯部'),
     draft: z.boolean().default(false), // true = 草稿，不會被發佈
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
+    // 操作步驟（教學類文章用）：t=步驟標題（必填）、d=補充說明（選填）。
+    // 有填才會顯示「操作步驟」流程與可分享步驟圖；正文仍維持 Markdown。
+    steps: z.array(z.object({ t: z.string(), d: z.string().optional() })).default([]),
   }),
 });
 
