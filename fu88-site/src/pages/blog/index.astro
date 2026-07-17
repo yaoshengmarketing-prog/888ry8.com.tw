@@ -22,7 +22,7 @@ const fmt = (d) => d.toISOString().slice(0, 10);
     <nav class="pill-cats" aria-label="文章分類">
       <a href="/blog/" class="pill active">全部</a>
       {CATEGORY_ORDER.map((slug) => (
-        <a href={`/blog/categories/${slug}/`} class="pill">{CATEGORIES[slug]}</a>
+        <a href={`/${slug}/`} class="pill">{CATEGORIES[slug]}</a>
       ))}
     </nav>
   </div>
@@ -30,7 +30,7 @@ const fmt = (d) => d.toISOString().slice(0, 10);
   <div class="container" style="padding:0 32px 72px">
     <div class="post-grid">
       {posts.map((p) => (
-        <a href={`/post/${p.slug}/`} class="post-card">
+        <a href={`/blog/${p.slug}/`} class="post-card">
           <div class="thumb">
             {p.data.cover && <img src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} loading="lazy" />}
           </div>
