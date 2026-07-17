@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES, CATEGORY_ORDER, CATEGORY_INTRO, CATEGORY_HUBS, SITE } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
+  return CATEGORY_ORDER.map((cat) => ({
+    params: { category: cat },
+    props: {
+      category: cat,
+      posts: posts
+        .filter((p) => p.data.category === cat)
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+const catName = CATEGORIES[category];
+const intro = CATEGORY_INTRO[category];
+const hubs = CATEGORY_HUBS[category] ?? [];
+const fmt = (d) => d.toISOString().slice(0, 10);
+---
+<Base title={`${catName}文章`} description={intro ?? `富88 娛樂城「${catName}」分類的所有文章與教學。`} type="website">
+  <section style="background:linear-gradient(180deg,#fbf5e8,#f4ead2); padding:52px 0 30px">
+    <div class="container" style="text-align:center">
+      <p class="eyebrow">CATEGORY</p>
+      <h1 class="sec-title" style="font-size:40px">{catName}</h1>
+    </div>
+    {intro && <p class="cat-intro">{intro}</p>}
+  </section>
+
+  {hubs.length > 0 && (
+    <div class="hub-box">
+      <div class="hub-grid">
+        {hubs.map((h) => (
+          <a href={h.href} class="hub-card">
+            <span class="hub-tag">重點整理 HUB</span>
+            <h3>{h.label} ›</h3>
+            <p>{h.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class="container" style="padding:34px 32px 8px">
+    <nav class="pill-cats" aria-label="文章分類">
+      <a href="/blog/" class="pill">全部</a>
+      {CATEGORY_ORDER.map((slug) => (
+        <a href={`/${slug}/`} class={`pill${slug === category ? ' active' : ''}`}>{CATEGORIES[slug]}</a>
+      ))}
+    </nav>
+  </div>
+
+  <div class="container" style="padding:0 32px 72px">
+    {posts.length === 0 ? (
+      <p style="text-align:center; color:#6b6252; padding:40px 0">這個分類的文章正在陸續補上，敬請期待。</p>
+    ) : (
+      <div class="post-grid">
+        {posts.map((p) => (
+          <a href={`/blog/${p.slug}/`} class="post-card">
+            <div class="thumb">{p.data.cover && <img src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} loading="lazy" />}</div>
+            <div class="body">
+              <span class="chip">{catName}</span>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.description}</p>
+              <div class="post-meta"><time datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time><span>· {p.data.author}</span></div>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>
