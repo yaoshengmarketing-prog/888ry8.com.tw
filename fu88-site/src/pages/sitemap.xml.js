@@ -15,11 +15,11 @@ export async function GET() {
     { loc: `${SITE.url}/`, lastmod: now, priority: '1.0' },
     { loc: `${SITE.url}/blog/`, lastmod: now, priority: '0.8' },
     ...Object.keys(CATEGORIES).map((c) => ({
-      loc: `${SITE.url}/blog/categories/${c}/`, lastmod: now, priority: '0.6',
+      loc: `${SITE.url}/${c}/`, lastmod: now, priority: '0.6',
     })),
     ...staticPages.map(([loc, priority]) => ({ loc: `${SITE.url}${loc}`, lastmod: now, priority })),
     ...posts.map((p) => ({
-      loc: `${SITE.url}/post/${p.slug}/`,
+      loc: `${SITE.url}/blog/${p.slug}/`,
       lastmod: iso(p.data.updatedDate ?? p.data.pubDate),
       priority: '0.7',
     })),
