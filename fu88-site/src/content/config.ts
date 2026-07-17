@@ -8,14 +8,14 @@ const blog = defineCollection({
     title: z.string(),                 // Meta Title（也是 H1）
     description: z.string(),            // Meta Description
     category: z.enum([
-      'platform-guide',
-      'register-account',
-      'app-mobile',
+      'platform-guide', 'platform',
+      'register-account', 'account',
+      'app-mobile', 'app',
       'promotions',
       'deposit-withdraw',
-      'game-guide',
+      'game-guide', 'games',
       'security',
-      'customer-service',
+      'customer-service', 'support',
     ]),
     tags: z.array(z.string()).default([]),
     pubDate: z.coerce.date(),          // 發佈日期
