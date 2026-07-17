@@ -1,7 +1,7 @@
 ---
 title: "富88 新會員註冊完整教學：3 分鐘領到 288 體驗金"
 description: "富88 娛樂城新會員註冊懶人包，從填資料、手機驗證到領取 288 體驗金一步步圖解，並整理常見卡關與解法，第一次玩也能安心上手。"
-category: "register-account"
+category: "account"
 tags: ["新會員", "註冊教學", "體驗金", "88體驗金"]
 pubDate: 2026-07-10
 cover: "/images/banner-01.webp"
