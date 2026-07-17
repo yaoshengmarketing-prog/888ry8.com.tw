@@ -6,17 +6,17 @@
 ## 網址結構
 - 首頁：`/`
 - 部落格列表：`/blog/`
-- 單篇文章：`/post/{slug}/`
-- 分類頁：`/blog/categories/{分類}/`
+- 單篇文章：`/blog/{slug}/`
+- 分類頁：`/{分類}/`
 - 網站地圖：`/sitemap.xml`　RSS：`/rss.xml`
 
-分類 slug：`platform-guide`(平台指南)、`promotions`(優惠活動)、`game-guide`(遊戲玩法)、`deposit-withdraw`(存款與出金)、`security`(安全查核)。
+分類 slug：`platform`(平台指南)、`promotions`(優惠活動)、`games`(遊戲玩法)、`deposit-withdraw`(存款與出金)、`security`(安全查核)。
 
 ## 怎麼「發一篇文章」（這就是自動發文的核心）
 1. 在 `src/content/blog/` 新增一個 `.md` 檔（檔名就是網址 slug）。
 2. 檔案最上面填「欄位」（標題、描述、分類、日期、封面、tags、faq…），下面用 Markdown 寫正文。
 3. 部署後，**文章頁、列表、分類頁、sitemap、RSS 全部自動更新**——你不用手動維護清單。
-   - 快速建草稿：`npm run new "文章標題" game-guide`
+   - 快速建草稿：`npm run new "文章標題" games`
    - `draft: true` 的文章不會被發佈。
 
 > 200、300 篇都不會亂：每篇都被 schema 強制帶齊 SEO 欄位，列表／分類／分頁由系統自動生成。
