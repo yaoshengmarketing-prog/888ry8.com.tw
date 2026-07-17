@@ -1,0 +1,11 @@
+# URL Standard v2.1 遷移 301（富88）
+/post/*                             /blog/:splat        301
+/blog/categories/platform-guide/*   /platform/          301
+/blog/categories/register-account/* /account/           301
+/blog/categories/app-mobile/*       /app/               301
+/blog/categories/promotions/*       /promotions/        301
+/blog/categories/deposit-withdraw/* /deposit-withdraw/  301
+/blog/categories/game-guide/*       /games/             301
+/blog/categories/security/*         /security/          301
+/blog/categories/customer-service/* /support/           301
+/blog/categories/*                  /blog/              301
