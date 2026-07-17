@@ -1,10 +1,10 @@
 // 一鍵新增一篇文章草稿：  npm run new "文章標題" 分類slug
-// 例：  npm run new "真人百家樂新手攻略" game-guide
+// 例：  npm run new "真人百家樂新手攻略" games
 // 這就是「自動發文」的最小單位——產生一個 .md，之後 build 就會自動生成文章頁與列表。
 import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
-const [title, category = 'platform-guide'] = process.argv.slice(2);
+const [title, category = 'platform'] = process.argv.slice(2);
 if (!title) { console.error('用法: npm run new "標題" 分類slug'); process.exit(1); }
 
 const slug = title
