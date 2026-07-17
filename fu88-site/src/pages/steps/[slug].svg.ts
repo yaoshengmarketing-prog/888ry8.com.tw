@@ -9,14 +9,14 @@ export async function getStaticPaths() {
 }
 
 const ACCENT: Record<string, string> = {
-  'platform-guide': '#c1954e',
-  'register-account': '#6fa8c9',
-  'app-mobile': '#7cb890',
+  'platform': '#c1954e',
+  'account': '#6fa8c9',
+  'app': '#7cb890',
   'promotions': '#d98a5a',
   'deposit-withdraw': '#b98fd0',
-  'game-guide': '#d06b74',
+  'games': '#d06b74',
   'security': '#5fb0a8',
-  'customer-service': '#cbb26a',
+  'support': '#cbb26a',
 };
 
 const esc = (s: string) =>
