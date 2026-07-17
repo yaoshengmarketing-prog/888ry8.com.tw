@@ -49,13 +49,13 @@ const fmt = (d)=>d.toISOString().slice(0,10);
       <ul style="list-style:none;padding:0;margin:0">
         {posts.map((p)=>(
           <li style="padding:12px 0;border-bottom:1px solid var(--line)">
-            <a href={`/post/${p.slug}/`} style="font-weight:700;font-size:16px">{p.data.title}</a>
+            <a href={`/blog/${p.slug}/`} style="font-weight:700;font-size:16px">{p.data.title}</a>
             <div style="font-size:13px;color:var(--muted);margin-top:2px">{fmt(p.data.pubDate)}</div>
           </li>
         ))}
       </ul>
     )}
-    <p style="margin-top:20px"><a href="/blog/categories/deposit-withdraw/" class="pill">看「存款與出金」全部文章 ›</a></p>
+    <p style="margin-top:20px"><a href="/deposit-withdraw/" class="pill">看「存款與出金」全部文章 ›</a></p>
   </div>
 
   <div class="wrap-narrow" style="padding:8px 24px 40px">
