@@ -110,7 +110,7 @@ const orgLd = {
           <span style="display:inline-flex; align-items:center; gap:9px; padding:0 30px; font-size:15px; color:#4a4033; font-weight:500"><i style="width:5px;height:5px;border-radius:50%;background:#c99a56;display:inline-block"></i>EXpay 與虛擬幣極速存取款，每筆再享回饋</span>
         </div>
       </div>
-      <a href="/blog/categories/promotions/" style="flex:none; font-size:14px; font-weight:600; color:#a9772f; padding:6px 12px; border-radius:8px">更多 ›</a>
+      <a href="/promotions/" style="flex:none; font-size:14px; font-weight:600; color:#a9772f; padding:6px 12px; border-radius:8px">更多 ›</a>
     </div>
   </section>
 
@@ -140,7 +140,7 @@ const orgLd = {
     </div>
     <div class="news-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:26px; text-align:left">
       {posts.map((p) => (
-        <a href={`/post/${p.slug}/`} class="p-card">
+        <a href={`/blog/${p.slug}/`} class="p-card">
           <div class="th">{p.data.cover && <img src={p.data.cover} alt={p.data.coverAlt ?? p.data.title} loading="lazy" />}</div>
           <div style="padding:20px 22px 24px; display:flex; flex-direction:column; gap:10px">
             <span class="chip">{CATEGORIES[p.data.category]}</span>
