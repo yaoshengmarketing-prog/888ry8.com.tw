@@ -44,13 +44,13 @@ import { SITE, PROVIDERS, LICENSES, CATEGORY_ORDER, CATEGORIES } from '../consts
       <div>
         <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#c7ccd4">快速連結</p>
         {CATEGORY_ORDER.slice(0, 6).map((slug) => (
-          <a href={`/blog/categories/${slug}/`} style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">{CATEGORIES[slug]}</a>
+          <a href={`/${slug}/`} style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">{CATEGORIES[slug]}</a>
         ))}
       </div>
       <div>
         <p style="margin:0 0 10px; font-size:13px; font-weight:800; color:#c7ccd4">服務與條款</p>
-        <a href="/blog/categories/platform-guide/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">新手幫助</a>
-        <a href="/blog/categories/customer-service/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">常見問題</a>
+        <a href="/platform/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">新手幫助</a>
+        <a href="/support/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">常見問題</a>
         <a href="/security-license/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">安全與牌照</a>
         <a href="/terms/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">服務條款</a>
         <a href="/privacy/" style="display:block; font-size:13px; color:#9aa0aa; padding:4px 0">隱私政策</a>
