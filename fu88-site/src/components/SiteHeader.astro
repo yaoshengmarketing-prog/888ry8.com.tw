@@ -14,7 +14,7 @@ import { CATEGORY_ORDER, CATEGORIES, SITE } from '../consts';
 
     <nav class="main-nav" id="mainNav" aria-label="主選單">
       {CATEGORY_ORDER.map((slug) => (
-        <a href={`/blog/categories/${slug}/`} class="nav-link">{CATEGORIES[slug]}</a>
+        <a href={`/${slug}/`} class="nav-link">{CATEGORIES[slug]}</a>
       ))}
     </nav>
 
