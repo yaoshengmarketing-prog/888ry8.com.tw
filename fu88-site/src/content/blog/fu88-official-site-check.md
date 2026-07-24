@@ -71,3 +71,10 @@ faq:
 辨識好官方入口後，如果你要了解正常的登入步驟，可以看[富88 娛樂城登入教學](/blog/fu88-login-guide/)；遇到登入失敗、帳號被鎖或收不到驗證碼，則可參考[富88 登入不了／無法登入](/blog/fu88-login-issues/)。還沒有帳號的話，先看[新會員註冊教學](/blog/new-member-register-guide/)；想看更多安全與自保主題，可前往[安全查核](/security/)分類，或回到[富88 娛樂城首頁](/)。
 
 > 提醒：博弈娛樂請量力而為，未滿 18 歲不得參與，理性娛樂、適度為宜。
+
+## 延伸閱讀
+
+- [富88 官方 LINE 與社群辨識](/blog/fu88-official-line/)
+- [富88 帳號安全與實名認證](/blog/fu88-account-security/)
+- [富88 客服與聯繫方式](/blog/fu88-customer-service/)
+- [富88 網頁版／免下載手機版](/blog/fu88-web-version/)
